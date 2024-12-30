@@ -1,66 +1,127 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Postcode Health Data Lookup Tool
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+## 🛠️ Project Overview
+The **Postcode Health Data Lookup Tool** is a Laravel-based application designed to fetch and display health-related statistics for parliamentary constituencies based on postcode input. This tool integrates with external APIs, **Postcodes.io API** database storage **SQLite**, and showcases dynamic frontend functionality to provide users with meaningful insights into health data.
 
-## About Laravel
+## 🎯 Project Goals
+- **Fetch Constituency Data**: Retrieve parliamentary constituency information for a given postcode using the Postcodes.io API.  
+- **Display Health Data**: Provide health-related statistics for the queried constituency, such as the prevalence of conditions like asthma, diabetes, and depression.  
+- **Interactive UI**: Offer users a seamless experience with a responsive interface styled using Tailwind CSS.  
+- **Showcase Skills**: Highlight proficiency in Laravel, Livewire, Tailwind CSS, AlpineJS, and database operations while reflecting the C6 Digital tech stack.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## 📌 Features
+- Postcode-based constituency lookup via the Postcodes.io API.  
+- Retrieval and display of health data stored in an SQLite database.  
+- Responsive design styled with Tailwind CSS.  
+- Real-time dynamic UI updates powered by AlpineJS.  
+- Comprehensive error handling for invalid postcodes or unavailable data.  
+- Adherence to industry best practices for clean and maintainable code.
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## 🚀 Technologies Used
+This project aligns with the preferred tech stack and tools used by C6 Digital:
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+### Backend
+- **PHP (Laravel Framework)**: The core framework for building the application.  
+- **SQLite**: Lightweight database for storing health data.  
+- **Livewire**: Simplifies the creation of dynamic interfaces directly in Blade templates.
 
-## Learning Laravel
+### Frontend
+- **Tailwind CSS**: Used for designing a clean and responsive user interface.  
+- **AlpineJS**: Enables lightweight and reactive frontend interactions.
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+### Tools
+- **GitHub**: Version control and project repository hosting.   
+- **SQLite CLI**: For direct database inspection and debugging.
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+The project was inspired by the requirements of a Laravel developer role at C6 Digital, incorporating their preferred tech stack and development practices. It demonstrates my ability to build full-stack applications, integrating external APIs with robust database operations, and implementing clean and responsive user interfaces.
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+## 🧑‍💻 Development Process
+1. **Setting Up the Environment**  
+   - Configured a Laravel project with SQLite as the database in the `.env` file, for example:
 
-## Laravel Sponsors
+        DB_CONNECTION=sqlite
+        DB_DATABASE=/path/to/health_database.sqlite
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+2. **Database Design and Seeding**  
+   - Created a `health_data` table to store health statistics with columns for constituency name, condition type, prevalence, and description.  
+   - Seeded the database using a CSV file containing health data.
 
-### Premium Partners
+3. **API Integration**  
+   - Integrated the Postcodes.io API to retrieve constituency data based on user-entered postcodes.  
+   - Implemented error handling for invalid or unavailable postcodes.
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
+4. **Querying Health Data**  
+   - Used Laravel’s Query Builder to fetch constituency-specific health data, for example:
 
-## Contributing
+        $healthData = DB::table('health_data')
+            ->whereRaw('LOWER(TRIM(pcon_name)) = ?', [strtolower(trim($constituency))])
+            ->get();
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+5. **Frontend Implementation**  
+   - Designed a responsive UI with Tailwind CSS to match the style of C6 Digital’s job portal.  
+   - Built dynamic table updates using AlpineJS.
 
-## Code of Conduct
+6. **Logging and Debugging**  
+   - **Utilised** Laravel’s logging system to track API responses and database queries for troubleshooting.
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+7. **Testing**  
+   - Tested the application extensively using Postman, browser developer tools, and the SQLite CLI.
 
-## Security Vulnerabilities
+## 💻 How to Run the Project Locally
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+### Prerequisites
+- PHP (>=8.1)  
+- Composer  
+- SQLite  
+- Node.js & npm  
 
-## License
+### Steps
+1. **Clone the Repository**:
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+       git clone https://github.com/yourusername/postcode-health-tool.git
+       cd postcode-health-tool
+
+2. **Install Dependencies**:
+
+       composer install
+       npm install
+
+3. **Set Up Environment Variables**  
+   - Copy `.env.example` to `.env`.  
+   - Update the `DB_DATABASE` path to your SQLite file:
+
+         DB_DATABASE=/path/to/health_database.sqlite
+
+4. **Run Database Migrations and Seeders**:
+
+       php artisan migrate
+       php artisan db:seed --class=HealthDataSeeder
+
+5. **Compile Frontend Assets**:
+
+       npm run dev
+
+6. **Start the Development Server**:
+
+       php artisan serve
+
+7. **Access the Application**  
+   Open your browser and navigate to:
+
+       http://127.0.0.1:8000
+
+## 📝 Example Usage
+1. Enter a valid UK postcode (e.g., **SS13 3EB**) in the input field.  
+2. View the constituency name and related health statistics.  
+3. If no data is available for the constituency, a fallback message will be displayed.
+
+## 🤝 Contributions
+Contributions, issues, and feature requests are welcome! Feel free to open an issue or submit a pull request.
+
+## 🏆 Acknowledgements
+- **Postcodes.io API** for constituency data.  
+- **Laravel, Tailwind CSS, and AlpineJS** for providing the tools to create this project.  
+- **C6 Digital** for inspiring this project idea through their Laravel Developer role requirements.
+
+## 📜 License
+This project is licensed under the MIT License. See the `LICENSE` file for more details.

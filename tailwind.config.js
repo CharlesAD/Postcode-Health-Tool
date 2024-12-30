@@ -14,7 +14,26 @@ export default {
             fontFamily: {
                 sans: ['Figtree', ...defaultTheme.fontFamily.sans],
             },
+            colors: {
+                primary: {
+                    DEFAULT: '#1a73e8',
+                    light: '#4d90fe',  
+                    dark: '#174ea6',  
+                },
+                secondary: '#f8f9fa', 
+                accent: '#ffa726',   
+            },
+            spacing: {
+                128: '32rem', 
+                144: '36rem',
+            },
+            borderRadius: {
+                xl: '1.5rem', 
+            },
         },
     },
-    plugins: [],
+    plugins: [
+        require('@tailwindcss/forms'), 
+        require('@tailwindcss/typography'), 
+    ],
 };
