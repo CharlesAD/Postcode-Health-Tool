@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Log;
 
 class PostcodeController extends Controller
 {
@@ -18,9 +20,19 @@ class PostcodeController extends Controller
             // Extract constituency information
             $constituency = $data['result']['parliamentary_constituency'];
 
+            Log::info('Constituency from API:', ['constituency' => $constituency]);
+
+            $healthData = DB::table('health_data')
+                ->whereRaw('LOWER(TRIM(pcon_name)) = ?', [strtolower(trim($constituency))])
+                ->select('condition', 'prevalence_percentage', 'description')
+                ->get();
+
+            Log::info('Database query result:', ['data' => $healthData]);
+
             return response()->json([
                 'postcode' => $postcode,
                 'constituency' => $constituency,
+                'health_data' => $healthData,
             ]);
         }
 
