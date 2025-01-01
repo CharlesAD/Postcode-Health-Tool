@@ -1,1 +1,4 @@
 *.sqlite*
+*.env
+bootstrap/cache/*.php
+/storage/*.key
